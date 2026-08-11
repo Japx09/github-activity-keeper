@@ -23,8 +23,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "Japx09"
+          git config --global user.email "Japx09@users.noreply.github.com"
           git add daily-streak.txt
           git commit -m "chore: automated daily log update" || exit 0
           git push
