@@ -17,12 +17,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Update and commit multiple times
+      - name: Update and commit multiple times randomly
         run: |
           git config --global user.name "Japx09"
           git config --global user.email "Japx09@users.noreply.github.com"
-          for i in {1..15}; do
-            echo "$(date) - update $i" >> daily-streak.txt
+          NUM_COMMITS=$((1 + RANDOM % 12))
+          echo "Generating $NUM_COMMITS commit(s) for today..."
+          for ((i=1; i<=NUM_COMMITS; i++)); do
+            echo "$(date) - update $i of $NUM_COMMITS" >> daily-streak.txt
             git add daily-streak.txt
             git commit -m "chore: automated daily log update $i"
           done
