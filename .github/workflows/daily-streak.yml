@@ -1,4 +1,4 @@
-name: Daily Activity Log Update
+name: Workspace State Sync
 
 on:
   schedule:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch: # Allows you to manually trigger it from the Actions tab
 
 jobs:
-  update-log:
+  sync-workspace:
     runs-on: ubuntu-latest
     # Required to allow the GitHub Action to push code back to the repository
     permissions:
@@ -17,15 +17,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Update and commit multiple times randomly
+      - name: Sync workspace state
         run: |
           git config --global user.name "Japx09"
           git config --global user.email "Japx09@users.noreply.github.com"
           NUM_COMMITS=$((1 + RANDOM % 12))
-          echo "Generating $NUM_COMMITS commit(s) for today..."
+          echo "Syncing $NUM_COMMITS state change(s)..."
           for ((i=1; i<=NUM_COMMITS; i++)); do
-            echo "$(date) - update $i of $NUM_COMMITS" >> daily-streak.txt
-            git add daily-streak.txt
-            git commit -m "chore: automated daily log update $i"
+            echo "$(date) - workspace sync event $i of $NUM_COMMITS" >> sync.log
+            git add sync.log
+            git commit -m "chore: sync workspace state $i"
           done
           git push
